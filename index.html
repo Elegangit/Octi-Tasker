@@ -163,7 +163,167 @@ canvas.wb,canvas.ec{width:100%;border:1.5px solid rgba(14,110,140,.2);border-rad
 @media (max-width:600px){.strip-row img,.strip-row video{height:110px}.sw-time{font-size:34px}}
 @media (max-width:860px){.app{grid-template-columns:1fr}.rail{flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 12px;gap:2px}.logo{padding:4px 8px}.logo b{font-size:14px}.nav-item{width:auto;padding:8px 10px}.rail-foot{display:none}.board{grid-template-columns:1fr}.wx-days{grid-template-columns:repeat(3,1fr)}.cal-day{min-height:32px}}
 @media (max-width:600px){.page{padding:18px 10px 30px}.addbar,.chips,.board,.t-wrap,.topbar{padding-left:12px;padding-right:12px}.link-input{min-width:130px}.calc-pad{grid-template-columns:repeat(4,1fr)}.wx-days{grid-template-columns:repeat(2,1fr)}}
+ <title>Media Gallery & Uploader</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Gallery & Uploader</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .drag-active {
+            border-color: #6366f1 !important;
+            background-color: #eef2ff !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center justify-start p-4 sm:p-6 md:p-10">
+
+    <div class="max-w-6xl w-full bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 p-6 sm:p-8 text-white">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold flex items-center gap-3">
+                        <i class="fa-solid fa-photo-film"></i>
+                        Media Hub & Gallery
+                    </h1>
+                    <p class="text-indigo-100 mt-1 text-sm sm:text-base">
+                        Pre-loaded MP4 videos with dynamic upload capabilities for GIFs, MP4s, and Images.
+                    </p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-xs sm:text-sm border border-white/20">
+                    <span class="font-semibold" id="totalCountBadge">34 Files</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-8">
+            <!-- Dropzone & File Input -->
+            <div id="dropzone" 
+                 class="border-2 border-dashed border-slate-300 hover:border-indigo-500 bg-slate-50/50 hover:bg-slate-50 transition-all duration-200 rounded-xl p-6 sm:p-10 text-center cursor-pointer flex flex-col items-center justify-center group relative">
+                
+                <!-- Hidden Native File Input -->
+                <input type="file" 
+                       id="fileInput" 
+                       multiple 
+                       accept="image/*,video/*,.gif,.mp4" 
+                       class="hidden" />
+
+                <!-- Visual Cue Icon -->
+                <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 group-hover:bg-indigo-100 transition-all duration-200">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+
+                <h2 class="text-base sm:text-lg font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors">
+                    Upload new GIFs, MP4 Videos, or Images
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 mb-4">
+                    Drag and drop your files here or browse from your device
+                </p>
+
+                <button type="button" 
+                        onclick="document.getElementById('fileInput').click()" 
+                        class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open"></i>
+                    Browse Files
+                </button>
+            </div>
+
+            <!-- Notification Toast -->
+            <div id="toastMessage" class="hidden p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>
+                <span id="toastText">Files uploaded successfully!</span>
+            </div>
+
+            <!-- Controls Section (Search & Filter Tabs) -->
+            <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 pb-2 border-b border-slate-200">
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap items-center gap-2" id="filterTabs">
+                    <button onclick="setFilter('all')" id="tab-all" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition-colors">
+                        All (<span id="count-all">0</span>)
+                    </button>
+                    <button onclick="setFilter('video')" id="tab-video" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                        Videos (<span id="count-video">0</span>)
+                    </button>
+                    <button onclick="setFilter('gif')" id="tab-gif" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                        GIFs (<span id="count-gif">0</span>)
+                    </button>
+                    <button onclick="setFilter('image')" id="tab-image" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                        Images (<span id="count-image">0</span>)
+                    </button>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative min-w-[240px]">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" 
+                           id="searchInput" 
+                           placeholder="Search filename..." 
+                           oninput="handleSearch()"
+                           class="w-full pl-9 pr-4 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-indigo-500 focus:bg-white transition-all">
+                </div>
+            </div>
+
+            <!-- Uploaded Files Section -->
+            <div>
+                <!-- Empty State Container -->
+                <div id="emptyState" class="hidden text-center py-12 border border-slate-100 bg-slate-50/50 rounded-xl">
+                    <i class="fa-regular fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                    <p class="text-slate-500 text-sm">No media files found matching your search/filter.</p>
+                </div>
+
+                <!-- Media Gallery Grid -->
+                <div id="fileList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Dynamic File Cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal Preview -->
+    <div id="mediaModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div class="p-4 bg-slate-900 text-white flex justify-between items-center">
+                <h3 id="modalTitle" class="text-sm font-medium truncate pr-4">Media Preview</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1 rounded-lg transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="modalBody" class="p-4 bg-black flex items-center justify-center flex-1 min-h-[300px]">
+                <!-- Preview Content Injected Here -->
+            </div>
+        </div>
+    </div>
 </head>
 <body data-theme="ocean">
 <div class="water" id="water"><div class="caustic"></div></div>
@@ -1381,7 +1541,297 @@ armLock();
     console.log('BackBoard demo call (BackBoard):',data);
     return Promise.resolve({ok:true, id:'bb-demo-123', data});
   }
+        // List of requested pre-loaded MP4 videos
+        const preloadedMp4s = [
+            "1000064909.mp4", "1000064915.mp4", "1000064919.mp4", "1000064923.mp4",
+            "1000064930.mp4", "1000064931.mp4", "1000064935.mp4", "1000064942.mp4",
+            "1000064943.mp4", "1000065917.mp4", "1000065918.mp4", "1000065920.mp4",
+            "1000065923.mp4", "1000065924.mp4", "1000065926.mp4", "1000065927.mp4",
+            "1000065928.mp4", "1000065929.mp4", "1000065930.mp4", "1000065931.mp4",
+            "1000065932.mp4", "1000065934.mp4", "1000065935.mp4", "1000065936.mp4",
+            "1000065938.mp4", "1000065939.mp4", "1000065944.mp4", "1000065982.mp4",
+            "1000067879.mp4", "1000067880.mp4", "1000067881.mp4", "1000067882.mp4",
+            "1000067883.mp4", "1000067884.mp4"
+        ];
 
+        // Active State
+        let uploadedFiles = [];
+        let activeFilter = 'all';
+        let searchQuery = '';
+
+        // DOM Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const emptyState = document.getElementById('emptyState');
+        const toastMessage = document.getElementById('toastMessage');
+        const toastText = document.getElementById('toastText');
+
+        // Initialize Application
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load preloaded MP4s into gallery state
+            preloadedMp4s.forEach((filename, index) => {
+                uploadedFiles.push({
+                    id: 'preloaded_' + index,
+                    name: filename,
+                    size: 'MP4 Video',
+                    type: 'video/mp4',
+                    url: filename,
+                    isPreloaded: true
+                });
+            });
+
+            renderFileList();
+            setupDragAndDrop();
+        });
+
+        // Setup Drag and Drop Listeners
+        function setupDragAndDrop() {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.add('drag-active'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, () => dropzone.classList.remove('drag-active'), false);
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                handleFiles(dt.files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+                fileInput.value = '';
+            });
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Process incoming uploaded files
+        function handleFiles(files) {
+            if (!files || files.length === 0) return;
+
+            let addedCount = 0;
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.name.endsWith('.gif') || file.name.endsWith('.mp4')) {
+                    const fileObj = {
+                        id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                        file: file,
+                        name: file.name,
+                        size: formatFileSize(file.size),
+                        type: file.type || (file.name.endsWith('.mp4') ? 'video/mp4' : 'image/jpeg'),
+                        url: URL.createObjectURL(file),
+                        isPreloaded: false
+                    };
+                    uploadedFiles.unshift(fileObj); // Place newly uploaded items at top
+                    addedCount++;
+                }
+            });
+
+            if (addedCount > 0) {
+                renderFileList();
+                showToast(`${addedCount} file(s) uploaded successfully!`);
+            }
+        }
+
+        // Filtering and Search Handling
+        function setFilter(filter) {
+            activeFilter = filter;
+            ['all', 'video', 'gif', 'image'].forEach(f => {
+                const tab = document.getElementById(`tab-${f}`);
+                if (f === filter) {
+                    tab.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition-colors";
+                } else {
+                    tab.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors";
+                }
+            });
+            renderFileList();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderFileList();
+        }
+
+        // Render Media Cards Grid
+        function renderFileList() {
+            // Update counts
+            const counts = {
+                all: uploadedFiles.length,
+                video: uploadedFiles.filter(f => f.type.startsWith('video/') || f.name.endsWith('.mp4')).length,
+                gif: uploadedFiles.filter(f => f.type === 'image/gif' || f.name.endsWith('.gif')).length,
+                image: uploadedFiles.filter(f => f.type.startsWith('image/') && f.type !== 'image/gif' && !f.name.endsWith('.gif')).length
+            };
+
+            document.getElementById('count-all').textContent = counts.all;
+            document.getElementById('count-video').textContent = counts.video;
+            document.getElementById('count-gif').textContent = counts.gif;
+            document.getElementById('count-image').textContent = counts.image;
+            document.getElementById('totalCountBadge').textContent = `${counts.all} Files Total`;
+
+            // Filter logic
+            const filteredFiles = uploadedFiles.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery);
+                const isVideo = item.type.startsWith('video/') || item.name.endsWith('.mp4');
+                const isGif = item.type === 'image/gif' || item.name.endsWith('.gif');
+                const isImage = item.type.startsWith('image/') && !isGif;
+
+                let matchesFilter = true;
+                if (activeFilter === 'video') matchesFilter = isVideo;
+                if (activeFilter === 'gif') matchesFilter = isGif;
+                if (activeFilter === 'image') matchesFilter = isImage;
+
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filteredFiles.length === 0) {
+                emptyState.classList.remove('hidden');
+                fileList.innerHTML = '';
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            fileList.innerHTML = '';
+
+            filteredFiles.forEach(fileItem => {
+                const isVideo = fileItem.type.startsWith('video/') || fileItem.name.endsWith('.mp4');
+                const isGif = fileItem.type === 'image/gif' || fileItem.name.endsWith('.gif');
+
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group";
+
+                let mediaBadge = '';
+                if (isVideo) {
+                    mediaBadge = `<span class="bg-violet-100 text-violet-700 text-[10px] px-2 py-0.5 rounded font-semibold flex items-center gap-1"><i class="fa-solid fa-video"></i> MP4</span>`;
+                } else if (isGif) {
+                    mediaBadge = `<span class="bg-amber-100 text-amber-700 text-[10px] px-2 py-0.5 rounded font-semibold flex items-center gap-1"><i class="fa-solid fa-file-gif"></i> GIF</span>`;
+                } else {
+                    mediaBadge = `<span class="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded font-semibold flex items-center gap-1"><i class="fa-solid fa-image"></i> Image</span>`;
+                }
+
+                let previewContent = '';
+                if (isVideo) {
+                    previewContent = `
+                        <div class="relative w-full h-40 bg-slate-900 flex items-center justify-center overflow-hidden cursor-pointer" onclick="openModal('${fileItem.id}')">
+                            <video src="${fileItem.url}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" muted preload="metadata"></video>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full bg-indigo-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-play text-sm ml-0.5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    previewContent = `
+                        <div class="relative w-full h-40 bg-slate-100 flex items-center justify-center overflow-hidden cursor-pointer" onclick="openModal('${fileItem.id}')">
+                            <img src="${fileItem.url}" alt="${escapeHtml(fileItem.name)}" class="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-200">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${previewContent}
+                    <div class="p-3 flex items-start justify-between gap-2 border-t border-slate-100 bg-white flex-1">
+                        <div class="overflow-hidden">
+                            <div class="flex items-center gap-2 mb-1">
+                                ${mediaBadge}
+                                <span class="text-[11px] text-slate-400 font-medium">${fileItem.size}</span>
+                            </div>
+                            <h4 class="text-xs font-semibold text-slate-700 truncate" title="${escapeHtml(fileItem.name)}">
+                                ${escapeHtml(fileItem.name)}
+                            </h4>
+                        </div>
+                        <button onclick="removeFile('${fileItem.id}')" 
+                                class="text-slate-300 hover:text-rose-600 p-1 rounded transition-colors" 
+                                title="Remove file">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+
+                fileList.appendChild(card);
+            });
+        }
+
+        // Modal Preview Logic
+        function openModal(id) {
+            const item = uploadedFiles.find(f => f.id === id);
+            if (!item) return;
+
+            const modal = document.getElementById('mediaModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = item.name;
+
+            const isVideo = item.type.startsWith('video/') || item.name.endsWith('.mp4');
+            if (isVideo) {
+                modalBody.innerHTML = `<video src="${item.url}" controls autoplay class="max-h-[70vh] max-w-full rounded-lg"></video>`;
+            } else {
+                modalBody.innerHTML = `<img src="${item.url}" alt="${escapeHtml(item.name)}" class="max-h-[70vh] max-w-full object-contain rounded-lg">`;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('mediaModal');
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = '';
+            modal.classList.add('hidden');
+        }
+
+        // Remove file
+        function removeFile(id) {
+            const index = uploadedFiles.findIndex(item => item.id === id);
+            if (index !== -1) {
+                if (!uploadedFiles[index].isPreloaded) {
+                    URL.revokeObjectURL(uploadedFiles[index].url);
+                }
+                uploadedFiles.splice(index, 1);
+                renderFileList();
+                showToast("File removed.");
+            }
+        }
+
+        // File size formatter
+        function formatFileSize(bytes) {
+            if (!bytes || isNaN(bytes)) return 'File';
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        // XSS Escape Helper
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Toast Helper
+        function showToast(message) {
+            toastText.textContent = message;
+            toastMessage.classList.remove('hidden');
+            setTimeout(() => {
+                toastMessage.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
 
 </body>
 </html>
