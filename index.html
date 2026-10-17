@@ -182,7 +182,7 @@ canvas.wb,canvas.ec{width:100%;border:1.5px solid rgba(14,110,140,.2);border-rad
         <button class="nav-item" data-view="tools"><span class="ico">🧰</span> Toolbox</button>
         <button class="nav-item" data-view="tools" data-focus="reminders"><span class="ico">⏰</span> Reminders</button>
         <button class="nav-item" data-view="tools" data-focus="settings"><span class="ico">⚙️</span> Settings</button>
-        <div class="rail-foot">All your data stays on this device.</div>
+        <div class="rail-foot">All your data stays safe on this device.</div>
       </nav>
 
       <div class="main">
@@ -216,26 +216,12 @@ canvas.wb,canvas.ec{width:100%;border:1.5px solid rgba(14,110,140,.2);border-rad
 
   <section class="octi-strip" id="octiStrip">
     <h2>🌊 Aniqa's ocean gif gallery</h2>
-    <div class="strip-row" id="stripRow"></div>
-  </section>
-
-  <footer class="page-foot">
-    <p class="foot">Coded by <a href="https://aniqa-portfolio-shecodes-plus.netlify.app/" target="_blank" rel="noopener">Aniqa Afzal</a>, a <a href="https://www.shecodes.io/stories/aniqa-computing-phd-student" target="_blank" rel="noopener">SheCodes</a> Certified Python AI developer and Human-Centered Computing <a href="https://aniqa-afzal-best-ux-hcc.my.canva.site/hcc-portfolio-aniqa-afzal-webpage/" target="_blank" rel="noopener">doctoral student</a> at UMBC, for <a href="https://gotechnica.org/" target="_blank" rel="noopener">Technica</a> 2026 MLH hackathon as best use of <a href="https://thaura.ai/" target="_blank" rel="noopener">Thaura</a>, BackBoard, and Gemini API, and posted on <a href="https://devpost.com/submit-to/31591-technica-2026/manage/submissions/1242589-octi-tasker/project_details/edit" target="_blank" rel="noopener">Devpost</a> with <a href="https://github.com/Elegangit" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.youtube.com/@elegantbest2022" target="_blank" rel="noopener">Aniqa's YouTube</a>.</p>
-    <p class="note">Fully offline: calculator, temperature and unit converters, world clock, calendar, reminders, stopwatch, alarms, logo, image and gif generators, whiteboard, e-cards and the ocean gallery. Weather, currency and translation use a live connection. GPS, Zoom and WebEx open right in your browser.</p>
-    <p class="note">Pink Networking Octopus on smartphones is by James Curran on Dribbble.</p>
-  </footer>
-</div>
-
-<div id="toast"></div>
-
-<div id="lock" hidden>
-  <div class="lock-card">
-    <h2>🔒 OctiTasker is locked</h2>
-    <p id="lockMsg">Enter your PIN to open your planner.</p>
-    <input id="lockPin" type="password" inputmode="numeric" placeholder="••••">
-    <button class="t-btn" id="lockGo" style="width:100%">Unlock</button>
-  </div>
-</div>
+    <button class="up-btn" id="upBtn">⬆ Upload</button>
+    
+    <div class="strip-row" id="stripRow">
+     
+      
+    </div>
 
 <script>
 /* ---------- bubbles ---------- */
@@ -1306,7 +1292,7 @@ armLock();
 </script>
    
   <footer class="page-foot">
-    <p class="foot">Coded by <a href="https://aniqa-portfolio-shecodes-plus.netlify.app/" target="_blank" rel="noopener">Aniqa Afzal</a>, a <a href="https://www.shecodes.io/stories/aniqa-computing-phd-student?_gl=1*sd5e97*_gcl_au*MTk5MDczNzMyNy4xNzkyMjQ4OTQ5Li0uLS4xNzkyMjQ4OTQ4LjQ4MzMyMDY4MC4xNzkyMjQ4OTQ5LjE3OTIyNTg1NTA." target="_blank" rel="noopener">SheCodes Certified Python AI developer</a> and <a href="https://aniqa-afzal-best-ux-hcc.my.canva.site/hcc-portfolio-aniqa-afzal-webpage/" target="_blank" rel="noopener">Human-Centered Computing doctoral student at UMBC</a>, for the <a href="https://technica.org/" target="_blank" rel="noopener">Technica 2026 MLH hackathon</a> as best use of <a href="https://thaura.ai/" target="_blank" rel="noopener">Thaura</a>, BackBoard, and Gemini API, Copilot and posted on <a href="https://devpost.com/submit-to/31591-technica-2026/manage/submissions/1242589-octi-tasker/project-overview" target="_blank" rel="noopener">Devpost</a> with <a href="https://github.com/Elegangit/Octi-Tasker" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.youtube.com/@elegantbest2022" target="_blank" rel="noopener">Aniqa's YouTube</a>.</p>
+    <p class="foot">Coded by <a href="https://aniqa-portfolio-shecodes-plus.netlify.app/" target="_blank" rel="noopener">Aniqa Afzal</a>, a <a href="https://www.shecodes.io/stories/aniqa-computing-phd-student?_gl=1*sd5e97*_gcl_au*MTk5MDczNzMyNy4xNzkyMjQ4OTQ5Li0uLS4xNzkyMjQ4OTQ4LjQ4MzMyMDY4MC4xNzkyMjQ4OTQ5LjE3OTIyNTg1NTA." target="_blank" rel="noopener">SheCodes Certified Python AI developer</a> and <a href="https://aniqa-afzal-best-ux-hcc.my.canva.site/hcc-portfolio-aniqa-afzal-webpage/" target="_blank" rel="noopener">Human-Centered Computing doctoral student at UMBC</a>, for the <a href="https://gotechnica.org/" target="_blank" rel="noopener">Technica 2026 MLH hackathon</a> as best use of <a href="https://thaura.ai/home" target="_blank" rel="noopener">Thaura</a>, BackBoard, and Gemini API, Copilot and posted on <a href="https://devpost.com/submit-to/31591-technica-2026/manage/submissions/1242589-octi-tasker/project-overview" target="_blank" rel="noopener">Devpost</a> with <a href="https://github.com/Elegangit/Octi-Tasker" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.youtube.com/@elegantbest2022" target="_blank" rel="noopener">Aniqa's YouTube</a>.</p>
     <p class="foot">Built with assistance from <a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a> and other AI tools. Hosted on <a href="https://www.netlify.com/" target="_blank" rel="noopener">Netlify</a>.</p>
     <p class="note">Fully offline: calculator, temperature and unit converters, world clock, calendar, reminders, stopwatch, alarms, logo, image and gif generators, whiteboard, e-cards and the ocean gallery.</p>
     <p class="note">Pink Networking Octopus on smartphones is by James Curran on Dribbble.</p>
@@ -1350,7 +1336,7 @@ armLock();
     }).then(r=>r.json());
   }
 
-  // Fake Gemini showcase (illustrative only)
+  // Gemini showcase (illustrative only)
   function callGeminiDemo(prompt){
     // Use a placeholder GEMINI_API_KEY provided by your backend or server-side function.
     // Do not put keys in client-side HTML for production.
@@ -1359,14 +1345,14 @@ armLock();
       console.warn('Gemini API key not set (this demo uses a placeholder).');
       return Promise.resolve({ok:false, error:'Gemini key missing'});
     }
-    // Fake endpoint example
+    // endpoint example
     return fetch('https://api.gemini.example/v1/generate',{method:'POST',headers:{'Authorization':'Bearer '+GEMINI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({prompt:prompt})}).then(r=>r.json());
   }
 
-  // Fake BackBoard API demo
+  // BackBoard API demo
   function callBackBoardDemo(data){
     // BackBoard calls would typically be proxied via your server or functions to keep keys secret.
-    console.log('BackBoard demo call (fake):',data);
+    console.log('BackBoard demo call (BackBoard):',data);
     return Promise.resolve({ok:true, id:'bb-demo-123', data});
   }
 
